@@ -7,9 +7,9 @@ const User = mongoose.model("User");
 const { JWT_SECRET } = require("../config/keys");
 const requireLogin = require("../middleware/requireLogin");
 
-router.get("/", (req, res) => {
-	res.send("Hello to Instagram");
-});
+// router.get("/", (req, res) => {
+// 	res.send("Hello to Instagram");
+// });
 
 router.post("/signup", (req, res) => {
 	const { name, email, password } = req.body;

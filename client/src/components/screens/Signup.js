@@ -13,7 +13,7 @@ const Signup = () => {
     const postData = () => {
         if ( /^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@(([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email) ){
 
-            fetch("/signup",{
+            fetch("http://localhost:5000/signup",{
                 method: "post",
                 headers:{
                     "Content-Type": "application/json"

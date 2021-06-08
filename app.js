@@ -6,16 +6,16 @@ const PORT = process.env.PORT || 5000;
 const { MONGOURI } = require("./config/keys.js");
 
 mongoose.connect(MONGOURI, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 mongoose.connection.on("connected", () => {
-	console.log("Connected to MongoDB");
+  console.log("Connected to MongoDB");
 });
 
 mongoose.connection.on("error", (err) => {
-	console.log("Failed to connect due to ", err);
+  console.log("Failed to connect due to ", err);
 });
 
 require("./models/user");
@@ -28,13 +28,17 @@ app.use(require("./routes/post"));
 app.use(require("./routes/user"));
 
 if (process.env.NODE_ENV == "production") {
-	app.use(express.static("client/build"));
-	const path = require("path");
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-	});
+  app.use(express.static("client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 
-app.listen(PORT, () => {
-	console.log(`Server is running on ${PORT}`);
+app.listen(PORT, (err) => {
+  if (err) {
+    console.log(`Error while running app : ${err}`);
+  } else {
+    console.log(`Server is running on ${PORT}`);
+  }
 });

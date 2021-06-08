@@ -3,7 +3,7 @@ import { UserContext } from "../../App";
 
 const Profile = () => {
   const [myPics, setPics] = useState([]);
-  const { state, dispatch } = useContext(UserContext);
+  const { state } = useContext(UserContext);
   useEffect(() => {
     fetch("/mypost", {
       headers: {
@@ -16,7 +16,7 @@ const Profile = () => {
         setPics(result.MyPosts);
       });
   }, []);
-
+  console.log(state);
   return (
     <div
       style={{ maxWidth: "700px", margin: "auto", justifyContent: "centre" }}
@@ -48,8 +48,8 @@ const Profile = () => {
             }}
           >
             <h6>{myPics.length} Posts</h6>
-            <h6>300 Followers</h6>
-            <h6>250 Following</h6>
+            <h6>{state ? state.followers.length : 0} Followers</h6>
+            <h6>{state ? state.followers.length : 0} Following</h6>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const [commentText, setCommentText] = useState("");
   const [data, setData] = useState([]);
-  const { state, dispatch } = useContext(UserContext);
+  const { state } = useContext(UserContext);
 
   useEffect(() => {
     fetch("/allposts", {
@@ -90,7 +90,6 @@ const Home = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        //console.log(result)
         const newData = data.map((item) => {
           if (item._id === result._id) {
             return result;
@@ -99,6 +98,7 @@ const Home = () => {
           }
         });
         setData(newData);
+        setCommentText("");
       })
       .catch((err) => console.log(err));
   };
@@ -196,9 +196,10 @@ const Home = () => {
                   <div style={{ display: "flex" }}>
                     <textarea
                       onChange={(e) => setCommentText(e.target.value)}
+                      value={commentText}
                       id="comment"
                       name="comment"
-                      className="db border-box hover-black w-100 measure ba b--black-20 pa2 br2 mb2"
+                      className="db border-box hover-black w-100 ba b--black-20 pa2 br2 mb2"
                       aria-describedby="comment-desc"
                     ></textarea>
                     <div

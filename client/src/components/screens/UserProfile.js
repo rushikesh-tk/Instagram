@@ -4,8 +4,12 @@ import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const [userProfile, setProfile] = useState(null);
+
   const { state, dispatch } = useContext(UserContext);
   const { userid } = useParams();
+  const [showFollowButton, setShowFollowButton] = useState(
+    state ? !state.following.includes(userid) : true
+  );
 
   useEffect(() => {
     fetch(`/user/${userid}`, {
@@ -34,6 +38,56 @@ const Profile = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        dispatch({
+          type: "UPDATE",
+          payload: { following: data.following, followers: data.followers },
+        });
+        localStorage.setItem("user", JSON.stringify(data));
+        setProfile((prevState) => {
+          return {
+            ...prevState,
+            user: {
+              ...prevState.user,
+              followers: [...prevState.user.followers, data._id],
+            },
+          };
+        });
+        setShowFollowButton(false);
+      });
+  };
+
+  const unfollowUser = () => {
+    fetch("/unfollow", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify({
+        unfollowId: userid,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({
+          type: "UPDATE",
+          payload: { following: data.following, followers: data.followers },
+        });
+        localStorage.setItem("user", JSON.stringify(data));
+        setProfile((prevState) => {
+          const newFollower = prevState.user.followers.filter(
+            (item) => item !== data._id
+          );
+          return {
+            ...prevState,
+            user: {
+              ...prevState.user,
+              followers: newFollower,
+            },
+          };
+        });
+        setShowFollowButton(true);
       });
   };
 
@@ -78,16 +132,27 @@ const Profile = () => {
                 }}
               >
                 <h6>{userProfile.posts.length} Posts</h6>
-                <h6>300 Followers</h6>
-                <h6>250 Following</h6>
+                <h6>{userProfile.user.followers.length} Followers</h6>
+                <h6>{userProfile.user.following.length} Following</h6>
               </div>
 
-              <button
-                className="pointer btn waves-effect waves-light #ba68c8 purple lighten-2"
-                onClick={() => followUser()}
-              >
-                Follow
-              </button>
+              {showFollowButton ? (
+                <button
+                  className="pointer btn waves-effect waves-light #ba68c8 blue lighten-2"
+                  onClick={() => followUser()}
+                  style={{ marginTop: "7px" }}
+                >
+                  Follow
+                </button>
+              ) : (
+                <button
+                  className="pointer btn waves-effect waves-light #ba68c8 blue lighten-2"
+                  onClick={() => unfollowUser()}
+                  style={{ marginTop: "7px" }}
+                >
+                  Unfollow
+                </button>
+              )}
             </div>
           </div>
 

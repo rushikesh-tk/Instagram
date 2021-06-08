@@ -23,9 +23,16 @@ require("./models/post");
 
 app.use(express.json());
 app.use(cors());
+
 app.use(require("./routes/auth"));
 app.use(require("./routes/post"));
 app.use(require("./routes/user"));
+
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  next();
+});
 
 if (process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));

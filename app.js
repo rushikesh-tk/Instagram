@@ -24,7 +24,7 @@ require("./models/post");
 
 var limiter = new rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 5,
+  max: 50,
 });
 
 app.use(express.json());

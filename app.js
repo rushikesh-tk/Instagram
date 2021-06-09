@@ -24,13 +24,13 @@ require("./models/post");
 
 var limiter = new rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 50,
+  max: 500,
 });
 
 app.use(express.json());
 app.use(cors());
 
-app.use("/", limiter);
+app.use("*", limiter);
 app.use("/api", limiter);
 app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/post"));

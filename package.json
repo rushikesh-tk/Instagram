@@ -7,6 +7,7 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm start --prefix client",
+    "reshift-build":"reshift-scan -t yzsT8ZwAAjqdGYZ0ML8unw/25yLTxlbCrqc04AvqDRk=",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },

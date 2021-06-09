@@ -6,15 +6,14 @@ const router = express.Router();
 const User = mongoose.model("User");
 const { JWT_SECRET } = require("../config/keys");
 const requireLogin = require("../middleware/requireLogin");
+const sanitize = require("mongo-sanitize");
 
 router.post("/signup", (req, res) => {
-  const { name, email, password } = req.body;
-
-  if (!email || !password || !name) {
+  if (!req.body.email || !req.body.password || !req.body.name) {
     return res.status(422).json({ error: "Please Enter All The Fields" });
   }
 
-  User.findOne({ email: email })
+  User.findOne({ email: sanitize(req.body.email) })
     .then((savedUser) => {
       if (savedUser) {
         return res.status(422).json({ error: "User Exist Already" });
@@ -22,8 +21,8 @@ router.post("/signup", (req, res) => {
 
       bcrypt.hash(password, 15).then((hashedPassword) => {
         const user = new User({
-          email,
-          name,
+          email: req.body.email,
+          name: req.body.name,
           password: hashedPassword,
         });
 
@@ -43,20 +42,18 @@ router.post("/signup", (req, res) => {
 });
 
 router.post("/signin", (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
+  if (!req.body.email || !req.body.password) {
     return res.status(422).json("Email or Password is missing");
   }
 
-  User.findOne({ email: email })
+  User.findOne({ email: sanitize(req.body.email) })
     .then((savedUser) => {
       if (!savedUser) {
         return res.status(422).json("Invalid Email or Password");
       }
 
       bcrypt
-        .compare(password, savedUser.password)
+        .compare(req.body.password, savedUser.password)
         .then((doMatch) => {
           if (doMatch) {
             console.log(doMatch);

@@ -7,7 +7,7 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm start --prefix client",
-    "reshift-build":"reshift-scan -t yzsT8ZwAAjqdGYZ0ML8unw/25yLTxlbCrqc04AvqDRk=",
+    "reshift-build": "reshift-scan -t yzsT8ZwAAjqdGYZ0ML8unw/25yLTxlbCrqc04AvqDRk=",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mongo-sanitize": "^1.1.0",
     "mongoose": "^5.9.10",
     "nodemon": "^2.0.7"
   }

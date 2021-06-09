@@ -30,6 +30,7 @@ var limiter = new rateLimit({
 app.use(express.json());
 app.use(cors());
 
+app.use("/", limiter);
 app.use("/api", limiter);
 app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/post"));

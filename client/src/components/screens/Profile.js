@@ -5,6 +5,7 @@ import Noprofile from "../../assets/noprofile.png";
 const Profile = () => {
   const [myPics, setPics] = useState([]);
   const { state } = useContext(UserContext);
+
   useEffect(() => {
     fetch("/mypost", {
       headers: {
@@ -17,7 +18,9 @@ const Profile = () => {
         setPics(result.MyPosts);
       });
   }, []);
+
   console.log(state);
+
   return (
     <div
       style={{ maxWidth: "700px", margin: "auto", justifyContent: "centre" }}
@@ -49,10 +52,8 @@ const Profile = () => {
             }}
           >
             <h6>{myPics.length} Posts</h6>
-            {/* <h6>{state ? state.followers.length : 0} Followers</h6>
-            <h6>{state ? state.followers.length : 0} Following</h6> */}
-            <h6>0 Followers</h6>
-            <h6>0 Following</h6>
+            <h6>{state ? state.followers.length : 0} Followers</h6>
+            <h6>{state ? state.followers.length : 0} Following</h6>
           </div>
         </div>
       </div>

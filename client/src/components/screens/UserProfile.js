@@ -23,6 +23,8 @@ const Profile = () => {
       });
   }, []);
 
+  console.log(userProfile);
+
   const followUser = () => {
     fetch("/follow", {
       method: "put",
@@ -131,10 +133,8 @@ const Profile = () => {
                 }}
               >
                 <h6>{userProfile.posts.length} Posts</h6>
-                {/* <h6>{userProfile.user.followers.length} Followers</h6>
-                <h6>{userProfile.user.following.length} Following</h6> */}
-                <h6>0 Followers</h6>
-                <h6>0 Following</h6>
+                <h6>{userProfile.user.followers.length} Followers</h6>
+                <h6>{userProfile.user.following.length} Following</h6>
               </div>
 
               {showFollowButton ? (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../App";
+import Noprofile from "../../assets/noprofile.png";
 
 const Profile = () => {
   const [myPics, setPics] = useState([]);
@@ -32,7 +33,7 @@ const Profile = () => {
         <div>
           <img
             style={{ width: "160px", height: "160px", borderRadius: "80px" }}
-            src="https://images.unsplash.com/photo-1582533552406-234434284c17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            src={Noprofile}
             alt=""
           />
         </div>
@@ -48,8 +49,10 @@ const Profile = () => {
             }}
           >
             <h6>{myPics.length} Posts</h6>
-            <h6>{state ? state.followers.length : 0} Followers</h6>
-            <h6>{state ? state.followers.length : 0} Following</h6>
+            {/* <h6>{state ? state.followers.length : 0} Followers</h6>
+            <h6>{state ? state.followers.length : 0} Following</h6> */}
+            <h6>0 Followers</h6>
+            <h6>0 Following</h6>
           </div>
         </div>
       </div>

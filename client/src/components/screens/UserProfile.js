@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../App";
 import { useParams } from "react-router-dom";
+import Noprofile from "../../assets/noprofile.png";
 
 const Profile = () => {
   const [userProfile, setProfile] = useState(null);
 
   const { state, dispatch } = useContext(UserContext);
   const { userid } = useParams();
-  const [showFollowButton, setShowFollowButton] = useState(
-    state ? !state.following.includes(userid) : true
-  );
+  const [showFollowButton, setShowFollowButton] = useState(true);
 
   useEffect(() => {
     fetch(`/user/${userid}`, {
@@ -116,7 +115,7 @@ const Profile = () => {
                   height: "160px",
                   borderRadius: "80px",
                 }}
-                src="https://images.unsplash.com/photo-1582533552406-234434284c17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                src={Noprofile}
                 alt=""
               />
             </div>
@@ -132,8 +131,10 @@ const Profile = () => {
                 }}
               >
                 <h6>{userProfile.posts.length} Posts</h6>
-                <h6>{userProfile.user.followers.length} Followers</h6>
-                <h6>{userProfile.user.following.length} Following</h6>
+                {/* <h6>{userProfile.user.followers.length} Followers</h6>
+                <h6>{userProfile.user.following.length} Following</h6> */}
+                <h6>0 Followers</h6>
+                <h6>0 Following</h6>
               </div>
 
               {showFollowButton ? (

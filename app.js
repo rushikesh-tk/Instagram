@@ -30,10 +30,10 @@ var limiter = new rateLimit({
 app.use(express.json());
 app.use(cors());
 
-app.use("/", limiter);
-app.use(require("./routes/auth"));
-app.use(require("./routes/post"));
-app.use(require("./routes/user"));
+app.use("/api", limiter);
+app.use("/api", require("./routes/auth"));
+app.use("/api", require("./routes/post"));
+app.use("/api", require("./routes/user"));
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");

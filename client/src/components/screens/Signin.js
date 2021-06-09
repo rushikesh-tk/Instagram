@@ -15,7 +15,7 @@ const Signin = () => {
         email
       )
     ) {
-      fetch("/signin", {
+      fetch("/api/signin", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

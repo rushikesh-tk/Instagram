@@ -11,7 +11,7 @@ const Profile = () => {
   const [showFollowButton, setShowFollowButton] = useState(true);
 
   useEffect(() => {
-    fetch(`/user/${userid}`, {
+    fetch(`/api/user/${userid}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -26,7 +26,7 @@ const Profile = () => {
   console.log(userProfile);
 
   const followUser = () => {
-    fetch("/follow", {
+    fetch("/api/follow", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const Profile = () => {
   };
 
   const unfollowUser = () => {
-    fetch("/unfollow", {
+    fetch("/api/unfollow", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
